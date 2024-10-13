@@ -63,17 +63,13 @@
 \title{Problem Set 2}
 \date{Due: October 14, 2024}
 \author{Applied Stats/Quant Methods 1}
+\vspace{.5cm}
 
 \begin{document}
-	\maketitle
-	\section*{Instructions}
-\begin{itemize}
-	\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
-	\item Your homework should be submitted electronically on GitHub.
-	\item This problem set is due before 23:59 on Monday October 14, 2024. No late assignments will be accepted.
-
-\end{itemize}
-
+		\maketitle
+		\vspace{-2em} 
+		\noindent \textbf{Name: Eimhin ONeill} \\
+		\noindent \textbf{Student Number: 20332107} \\
 	
 	\vspace{.5cm}
 	\section*{Question 1: Political Science}
@@ -97,10 +93,42 @@
 	
 	\item [(a)]
 	Calculate the $\chi^2$ test statistic by hand/manually (even better if you can do "by hand" in \texttt{R}).\\
-	\vspace{7cm}
+	
+	First, I need to get the row, column and grand totals.
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=25, lastline=32]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}  
+	\vspace{0.5cm}
+	
+	Then, calculate the observed and expected frequency of occurrence
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=33, lastline=50]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}  
+	\vspace{0.5cm} 
+	
+	Finally, I need to calculate $X^2$ using the formula...
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=52, lastline=54]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}  
+	\vspace{0.5cm}
+	
+	\vspace{1cm}
 	
 	\item [(b)]
 	Now calculate the p-value from the test statistic you just created (in \texttt{R}).\footnote{Remember frequency should be $>$ 5 for all cells, but let's calculate the p-value here anyway.}  What do you conclude if $\alpha = 0.1$?\\
+	
+	To calculate the p-value, I first need to get the degrees of freedom.
+	
+	\lstinputlisting[language=R, firstline=60, lastline=63]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}  
+	
+	\vspace{1cm}
+	
+	Then, to calculate the p-value, I will use the pchisq function
+	
+	\lstinputlisting[language=R, firstline=69, lastline=71]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}  
+	
+	
+	Since the calculated p-value is 0.1502306 and therefore, higher than our alpha of 0.1, we fail to reject the null hypothesis. I do not think there is enough evidence to conclude that there is a significant association between class and the likelihood of being solicited for a bribe.
 	
 	\newpage
 	\item [(c)] Calculate the standardized residuals for each cell and put them in the table below.
@@ -112,16 +140,25 @@
 			& Not Stopped & Bribe requested & Stopped/given warning \\
 			\\[-1.8ex] 
 			\hline \\[-1.8ex]
-			Upper class  &  &  &  \\
+			Upper class & 0.3220 & -1.6420 & 1.5230 \\
 			\\
-			Lower class &  &   &   \\
+			Lower class & -0.3220 & 1.6420 & -1.5230 \\
 			
 		\end{tabular}
 	\end{table}
 	
 	
-	\vspace{7cm}
+	\vspace{0.5cm}
 	\item [(d)] How might the standardized residuals help you interpret the results?  
+	
+	Standardised residuals aid us in understanding how far away each observed value is from what we expected. It's calculated using the formula: z = f(observed) minus f(expected) / standard error.
+	
+	Additionally, they help us understand what the outliers in our data are. Normally, any figure above or below 3 is considered an outlier. So in respect to our results, we have no outliers and all the residuals are under an absolute value of 1.645 (or 90 per cent confidence interval)
+	
+	Finally, standardised residuals are useful in identifying the direction of our results and what they mean. For example, positive residuals indicate to us that the observed count is higher than we expected. With upper class and bribe requested being positive, it suggests that upper class people are more likely to be solicited for a bribe than we expected.
+	
+	A negative residual suggests the opposite. For example, with lower class and not stopped being negative, this suggest lower class people are less likely to not be stopped than we expected.
+	
 	
 \end{enumerate}
 \newpage
@@ -142,12 +179,31 @@ Chattopadhyay and Duflo were interested in whether women promote different polic
 \newpage
 \begin{enumerate}
 	\item [(a)] State a null and alternative (two-tailed) hypothesis. 
+	\vspace{0.5cm}
 	
-	\vspace{6cm}
+	Null hypothesis (H0): reservation policy has no effect on the number of new/repaired water facilities (Beta of reservation policy = 0)
+	
+	Alternate hypothesis (Ha): reservation policy does have an effect on the number of new/repaired water facilities (Beta of reservation policy is not = 0)
+	
+	\vspace{0.5cm}
 	\item [(b)] Run a bivariate regression to test this hypothesis in \texttt{R} (include your code!).
+	\vspace{0.5cm}
 	
-	\vspace{6cm}
+	\lstinputlisting[language=R, firstline=144, lastline=151]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}
+	
+	\vspace{0.5cm}
 	\item [(c)] Interpret the coefficient estimate for reservation policy. 
+	
+		\lstinputlisting[language=R, firstline=158, lastline=175]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS02/My Work/Problem Set 2.R}
+		
+	Reservation policy has a coefficient estimate of 9.252. This suggest that every additional seat reserved for women (or one unit increase in reservation policy), there is an increase of 9.252 new or repaired water facilities in the villages.
+	
+	This indicates, to me, a positive relationship between reservation policy and water facilities. We can use the p-value generated in the summary to clarify this further.
+	
+	The p-value of 0.0197 indicates statistically significance given likely and commonly used alphas of 0.05 or 0.1. In this case, if alpha was = 0.05 or 0.1, we could reject our null hypothesis of reservation policy not having an effect on water facilities.
+	
+		
+		
 \end{enumerate}
 
 \end{document}
