@@ -1,0 +1,317 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+
+\title{Problem Set 4}
+\date{Due: November 18, 2024}
+\author{Applied Stats/Quant Methods 1}
+
+
+\begin{document}
+		\maketitle
+		\vspace{-2em} 
+		\noindent \textbf{Name: Eimhin ONeill} \\
+		\noindent \textbf{Student Number: 20332107} \\
+	
+	\maketitle
+	\section*{Instructions}
+	\begin{itemize}
+		\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
+		\item Your homework should be submitted electronically on GitHub.
+		\item This problem set is due before 23:59 on Monday November 18, 2024. No late assignments will be accepted.
+	\end{itemize}
+
+
+
+	\vspace{.5cm}
+\section*{Question 1: Economics}
+\vspace{.25cm}
+\noindent 	
+In this question, use the \texttt{prestige} dataset in the \texttt{car} library. First, run the following commands:
+
+\begin{verbatim}
+install.packages(car)
+library(car)
+data(Prestige)
+help(Prestige)
+\end{verbatim} 
+
+
+\noindent We would like to study whether individuals with higher levels of income have more prestigious jobs. Moreover, we would like to study whether professionals have more prestigious jobs than blue and white collar workers.
+
+\newpage
+\begin{enumerate}
+	
+	\item [(a)]
+	Create a new variable \texttt{professional} by recoding the variable \texttt{type} so that professionals are coded as $1$, and blue and white collar workers are coded as $0$ (Hint: \texttt{ifelse}).
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=27, lastline=28]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	
+	\item [(b)]
+	Run a linear model with \texttt{prestige} as an outcome and \texttt{income}, \texttt{professional}, and the interaction of the two as predictors (Note: this is a continuous $\times$ dummy interaction.)
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=35, lastline=38]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	\item [(c)]
+	Write the prediction equation based on the result.
+	
+	\vspace{0.5cm}
+	
+    \texttt  Prestige = 21.1422589 + 0.0031709 x Income + 37.7812800 x Professional - 0.0023257 x (Income x Professiomal)
+   
+	\vspace{0.5cm}
+	
+\newpage
+	\item [(d)]
+	Interpret the coefficient for \texttt{income}.
+	
+	\vspace{0.5cm}
+	
+	\texttt  Income coefficient = 0.0031709
+	
+	\vspace{0.5cm}
+	
+	\texttt  So, for each unit increase in income for non professionals (when professional = 0), it increases their prestige by a really small amount
+	
+	For a blue or white collar person to increase their prestige by 3.2 points, they would have to earn a 1000 dollars more
+	
+	\vspace{0.5cm}
+	
+	\item [(e)]
+	Interpret the coefficient for \texttt{professional}.
+	
+		\vspace{0.5cm}
+	
+	\texttt  Professional coefficient = 37.7812800  
+	
+	\vspace{0.5cm}
+	
+	\texttt  For anyone in a professional job, assuming the same income as a blue or white collar worker, they would have 37.78 more prestige points.
+	
+	This shows that there is a much bigger effect for those in jobs
+	seen as professional rather than their income.
+	
+	\vspace{0.5cm}
+	
+	\newpage
+	\item [(f)]
+	What is the effect of a \$1,000 increase in income on prestige score for professional occupations? In other words, we are interested in the marginal effect of income when the variable \texttt{professional} takes the value of $1$. Calculate the change in $\hat{y}$ associated with a \$1,000 increase in income based on your answer for (c).
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=67, lastline=77]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	\vspace{0.5cm}
+	
+	\texttt In this case, Prestige only increases by roughly 0.9.
+	This furthers my previous inclination that maybe it is not all about the money for professionals.
+	
+	It seems the job titles could be doing more of that prestige signalling.
+	
+	\vspace{0.5cm}
+	
+	
+	\item [(g)]
+	What is the effect of changing one's occupations from non-professional to professional when her income is \$6,000? We are interested in the marginal effect of professional jobs when the variable \texttt{income} takes the value of $6,000$. Calculate the change in $\hat{y}$ based on your answer for (c).
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=89, lastline=100]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	\vspace{0.5cm}
+	
+	\texttt In this case, Prestige increases by 23.82703.
+	This shows us that if someone earns 6000 dollars and switches from white/blue collar to professional, their Prestige increases but the Income is still an inhibiting factor reducing the potential full effect.
+	
+	\vspace{0.5cm}
+	
+	
+\end{enumerate}
+
+\newpage
+
+\section*{Question 2: Political Science}
+\vspace{.25cm}
+\noindent 	Researchers are interested in learning the effect of all of those yard signs on voting preferences.\footnote{Donald P. Green, Jonathan	S. Krasno, Alexander Coppock, Benjamin D. Farrer,	Brandon Lenoir, Joshua N. Zingher. 2016. ``The effects of lawn signs on vote outcomes: Results from four randomized field experiments.'' Electoral Studies 41: 143-150. } Working with a campaign in Fairfax County, Virginia, 131 precincts were randomly divided into a treatment and control group. In 30 precincts, signs were posted around the precinct that read, ``For Sale: Terry McAuliffe. Don't Sellout Virgina on November 5.'' \\
+
+Below is the result of a regression with two variables and a constant.  The dependent variable is the proportion of the vote that went to McAuliff's opponent Ken Cuccinelli. The first variable indicates whether a precinct was randomly assigned to have the sign against McAuliffe posted. The second variable indicates
+a precinct that was adjacent to a precinct in the treatment group (since people in those precincts might be exposed to the signs).  \\
+
+\vspace{.5cm}
+\begin{table}[!htbp]
+	\centering 
+	\textbf{Impact of lawn signs on vote share}\\
+	\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+		\\[-1.8ex] 
+		\hline \\[-1.8ex]
+		Precinct assigned lawn signs  (n=30)  & 0.042\\
+		& (0.016) \\
+		Precinct adjacent to lawn signs (n=76) & 0.042 \\
+		&  (0.013) \\
+		Constant  & 0.302\\
+		& (0.011)
+		\\
+		\hline \\
+	\end{tabular}\\
+	\footnotesize{\textit{Notes:} $R^2$=0.094, N=131}
+\end{table}
+
+\vspace{.5cm}
+\begin{enumerate}
+	\item [(a)] Use the results from a linear regression to determine whether having these yard signs in a precinct affects vote share (e.g., conduct a hypothesis test with $\alpha = .05$).
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=116, lastline=124]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{2.5cm}
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=126, lastline=144]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	\vspace{0.5cm}
+	
+	\texttt Conclusion
+	
+	\vspace{0.5cm}
+	
+	\texttt Since the calculated p-value is less than a = 0.05, 
+	we reject the null and see that lawn signs in yards have a statistically significiant effect on voteshare.
+	
+	\vspace{0.5cm}
+	
+	\newpage		
+	\item [(b)]  Use the results to determine whether being
+	next to precincts with these yard signs affects vote
+	share (e.g., conduct a hypothesis test with $\alpha = .05$).
+	
+	
+	\vspace{0.5cm}
+	\lstinputlisting[language=R, firstline=154, lastline=182]{/Users/eimhi/Documents/GitHub/StatsI_Fall2024/problemSets/PS04/My Work/PS04.R}  
+	\vspace{0.5cm}
+	
+	\vspace{0.5cm}
+	
+	\texttt Conclusion
+	
+	\vspace{0.5cm}
+	
+	\texttt Since the calculated p-value is less than a = 0.05, we reject the null and see that being adjacent to precincts with lawn signs in yards have a statistically significiant effect on vote share
+	
+	\vspace{0.5cm}
+	
+	\vspace{7cm}
+	\item [(c)] Interpret the coefficient for the constant term substantively.
+
+    \vspace{0.5cm}
+
+    \texttt 30.2 percent is the vote share for McAuliffe's competitors in  when precincts do not have yard signs and are not adjacent to precincts with yard signs.
+    
+    \vspace{0.5cm}
+    
+    \texttt This interests us because it helps better understand the isolated effects of the explanatory variables any changes above or below 30.2 per cent are pretty much caused because of the variables
+    
+    \vspace{0.5cm}
+    
+    \texttt so if there are no yard signs and irrelevant whether close to precincts with yard signs, McAuliffes opponent will receive less than a third of the votes
+
+    \vspace{0.5cm}
+
+    \texttt If I was the opponent and did not know about the fit of the model, it shows that I would have to make the campaign visible and do my best to influence votes.
+
+    \vspace{0.5cm}
+	
+	
+	
+	\item [(d)] Evaluate the model fit for this regression.  What does this	tell us about the importance of yard signs versus other factors that are not modeled?
+	
+	\vspace{0.5cm}
+	
+	\texttt R Squared is 0.094
+	
+	\vspace{0.5cm}
+	
+	\texttt The model only explains 9.4 per cent of total variability in vote share suggesting to us that yard signs and adjacency have some influence but the most of the variation comes from other factors not included.
+	
+	\vspace{0.5cm}
+	
+	\texttt Yard signs and adjacency are statistically significant and do affect vote share but only in a minor way, as shown by the low R Squared.
+	
+	\vspace{0.5cm}
+	
+	\texttt Other factors play a larger part in determining voteshare could be economic climate (like interest rates, sovereign debt rates as seen currently in the US) could be precinct demographics (i.e. younger voters might vote more for mcauliffes opponents)
+	
+	\vspace{0.5cm}
+	
+	\texttt It could be down to strategy and other tools in the campaign toolkit like podcast appearances (which was supposedly a major decider in the recent US election).
+	
+	\vspace{0.5cm}
+	
+	
+\end{enumerate}  
+
+
+\end{document}
